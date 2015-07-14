@@ -12,10 +12,6 @@ public class PlayState extends State {
 
 	protected PlayState(GameStateManager gsm) {
 		super(gsm);
-		assignTextures();
-	}
-	
-	private void assignTextures() {
 		bird = new Bird( 50, 100 );
 	}
 
