@@ -4,10 +4,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import ca.willenborg.games.flappybird.AssetStore;
+import ca.willenborg.games.flappybird.sprites.Bird;
 
 public class PlayState extends State {
 	
-	private TextureRegion bird;
+	private Bird bird;
 
 	protected PlayState(GameStateManager gsm) {
 		super(gsm);
@@ -15,7 +16,7 @@ public class PlayState extends State {
 	}
 	
 	private void assignTextures() {
-		bird = AssetStore.INSTANCE.getRegion( "bird1_wings_level" );
+		bird = new Bird( 50, 100 );
 	}
 
 	@Override
@@ -27,15 +28,16 @@ public class PlayState extends State {
 	@Override
 	public void update(float deltaTime) {
 		handleInput();
+		bird.update( deltaTime );
 	}
 
 	@Override
 	public void render(SpriteBatch sb) {
 		sb.setProjectionMatrix(camera.combined);
 		sb.begin();
-		sb.draw( bird,
-				bird.getRegionWidth() / -2,
-				bird.getRegionHeight() / -2 );
+		sb.draw( bird.getTextureRegion(),
+				bird.getPosition().x,
+				bird.getPosition().y );
 		sb.end();
 	}
 
