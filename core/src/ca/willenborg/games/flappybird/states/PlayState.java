@@ -32,16 +32,17 @@ public class PlayState extends State {
 
 	@Override
 	public void render(SpriteBatch sb) {
-		//TextureRegion top = tube.getTopTextureRegion();
-		
-		
 		sb.setProjectionMatrix(camera.combined);
 		sb.begin();
+		drawBird( sb );
+		drawTubes( sb );
+		sb.end();
+	}
+
+	private void drawBird(SpriteBatch sb) {
 		sb.draw( bird.getTextureRegion(),
 				bird.getPosition().x,
 				bird.getPosition().y );
-		drawTubes( sb );
-		sb.end();
 	}
 	
 	private void drawTubes( SpriteBatch sb ) {
