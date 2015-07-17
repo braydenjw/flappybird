@@ -5,17 +5,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import ca.willenborg.games.flappybird.AssetStore;
 import ca.willenborg.games.flappybird.sprites.Bird;
-import ca.willenborg.games.flappybird.sprites.Tube;
 
 public class PlayState extends State {
 	
 	private Bird bird;
-	private Tube tube;
 
 	protected PlayState(GameStateManager gsm) {
 		super(gsm);
 		bird = new Bird( 50, 100 );
-		tube = new Tube( 100, (int) camera.viewportHeight );
 	}
 
 	@Override
@@ -32,28 +29,12 @@ public class PlayState extends State {
 
 	@Override
 	public void render(SpriteBatch sb) {
-		//TextureRegion top = tube.getTopTextureRegion();
-		
-		
 		sb.setProjectionMatrix(camera.combined);
 		sb.begin();
 		sb.draw( bird.getTextureRegion(),
 				bird.getPosition().x,
 				bird.getPosition().y );
-		drawTubes( sb );
 		sb.end();
-	}
-	
-	private void drawTubes( SpriteBatch sb ) {
-		TextureRegion tubeRegion = tube.getTextureRegion();
-		sb.draw( tubeRegion, 
-				tube.getBottomTubePosition().x,
-				tube.getBottomTubePosition().y );
-		tubeRegion.flip( false, true );
-		sb.draw( tubeRegion, 
-				tube.getTopTubePosition().x,
-				tube.getTopTubePosition().y );
-		tubeRegion.flip( false, true );
 	}
 
 	@Override
