@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector3;
 import ca.willenborg.games.flappybird.AssetStore;
 
 public class Bird {
-	
+	private static final int MOVEMENT = 100;
 	private static final int GRAVITY = -15;
 	
 	private Vector3 position;
@@ -23,9 +23,16 @@ public class Bird {
 	public void update( float deltaTime ) {
 		velocity.add( 0, GRAVITY, 0);
 		velocity.scl( deltaTime );
-		position.add( velocity.x, velocity.y, velocity.z );
-		
+		if( position.y < 0 ) {
+			position.y = 0;
+		} else {
+			position.add( MOVEMENT * deltaTime , velocity.y, velocity.z );
+		}
 		velocity.scl( 1 / deltaTime );
+	}
+	
+	public void jump() {
+		velocity.y = 250;
 	}
 	
 	public Vector3 getPosition() {

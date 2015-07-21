@@ -8,26 +8,26 @@ import com.badlogic.gdx.math.Vector2;
 import ca.willenborg.games.flappybird.AssetStore;
 
 public class Tube {
+	public static final TextureRegion TEXTURE_REGION = 
+			AssetStore.INSTANCE.getRegion( "green_pipe" );
+	
 	private static final int GAP_HEIGHT = 70;
 	
-	private final TextureRegion textureRegion;
 	private Vector2 topTubePosition;
 	private Vector2 bottomTubePosition;
 	private Random random;
 	
 	public Tube( float x, int viewportHeight ) {
-		textureRegion = AssetStore.INSTANCE.getRegion( "green_pipe" );
 		random = new Random();
 		generateTubePositions(x, viewportHeight);	
 	}
 	
-	private void generateTubePositions( float x, int viewportHeight ) {
-		int tubeHeight = textureRegion.getRegionHeight();
+	public void generateTubePositions( float x, int viewportHeight ) {
 		topTubePosition = new Vector2( x,
-				randomBetween( viewportHeight - tubeHeight, 
-						tubeHeight + GAP_HEIGHT ) );
+				randomBetween( viewportHeight - TEXTURE_REGION.getRegionHeight(), 
+						TEXTURE_REGION.getRegionHeight() + GAP_HEIGHT ) );
 		bottomTubePosition = new Vector2( x,
-				topTubePosition.y - tubeHeight - GAP_HEIGHT );
+				topTubePosition.y - TEXTURE_REGION.getRegionHeight() - GAP_HEIGHT );
 	}
 	
 	private int randomBetween( int minInclusive, int maxInclusive ) {
@@ -40,9 +40,5 @@ public class Tube {
 	
 	public Vector2 getBottomTubePosition() {
 		return bottomTubePosition;
-	}
-	
-	public TextureRegion getTextureRegion() {
-		return textureRegion;
 	}
 }
