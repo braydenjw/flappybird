@@ -42,7 +42,7 @@ public class Bird {
 		} else {
 			position.add( MOVEMENT * deltaTime , velocity.y, velocity.z );
 		}
-		birdBounds.setPosition( new Vector2( position.x, position.y ) );
+		birdBounds.setPosition( position.x, position.y );
 	}
 	
 	public void jump() {
