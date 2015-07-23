@@ -37,21 +37,37 @@ public class PlayState extends State {
 	}
 
 	@Override
-	public void update(float deltaTime) {
+	public void update( float deltaTime ) {
 		handleInput();
 		bird.update( deltaTime );
+		detectCollisions();
 		camera.position.x = bird.getPosition().x + 40;
-		
+		relocateTubes();		
+		camera.update();
+	}
+	
+	private void detectCollisions() {
+		for( Tube tube : tubes ) {
+			if ( bird.getBounds().overlaps( tube.getTopTubeBounds() ) ||
+					bird.getBounds().overlaps( tube.getBottomTubeBounds() ) ) {
+				gameStateManager.set( new PlayState( gameStateManager ) );
+			}
+		}
+	}
+	
+	private void relocateTubes() {
 		for( Tube tube : tubes) {
 			if( camera.position.x - ( camera.viewportWidth / 2 ) 
 					> tube.getTopTubePosition().x + Tube.TEXTURE_REGION.getRegionWidth() ) {
-				tube.generateTubePositions( tube.getTopTubePosition().x + 
-						( TUBE_COUNT * ( Tube.TEXTURE_REGION.getRegionWidth() + TUBE_SPACING ) ), 
-						(int) camera.viewportHeight);
+				relocateTube( tube );
 			}
 		}
-		
-		camera.update();
+	}
+	
+	private void relocateTube( Tube tube ) {
+		tube.generateTubePositions( tube.getTopTubePosition().x + 
+				( TUBE_COUNT * ( Tube.TEXTURE_REGION.getRegionWidth() + TUBE_SPACING ) ), 
+				(int) camera.viewportHeight);
 	}
 
 	@Override
