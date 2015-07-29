@@ -61,4 +61,8 @@ public class Tube {
 	public Rectangle getBottomTubeBounds() {
 		return bottomTubeBounds;
 	}
+	
+	public void dispose() {
+		
+	}
 }

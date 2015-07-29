@@ -47,9 +47,9 @@ public class PlayState extends State {
 	}
 	
 	private void detectCollisions() {
-		for( Tube tube : tubes ) {
-			if ( bird.getBounds().overlaps( tube.getTopTubeBounds() ) ||
-					bird.getBounds().overlaps( tube.getBottomTubeBounds() ) ) {
+		for( int i = 0; i < tubes.size; i++ ) {
+			if ( bird.getBounds().overlaps( tubes.get( i ).getTopTubeBounds() ) ||
+					bird.getBounds().overlaps( tubes.get( i ).getBottomTubeBounds() ) ) {
 				gameStateManager.set( new PlayState( gameStateManager ) );
 			}
 		}
@@ -105,7 +105,9 @@ public class PlayState extends State {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		for ( Tube tube : tubes ) {
+			tube.dispose();
+		}
 
 	}
 
